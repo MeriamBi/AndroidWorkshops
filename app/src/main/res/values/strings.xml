@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">AppColorMixer</string>
+    <string name="color_mixer_title">Color Mixer</string>
+    <string name="choose_answer_title">Choose your answer</string>
+    <string name="success_res">Success</string>
+    <string name="failure_res">Failure</string>
+    <string name="enter_your_name">Enter your name :</string>
+    <string name="choose_2_colors">Choose 2 colors :</string>
+    <string name="submit">Submit</string>
+    <string name="what_color_is_mixed">What color is mixed?</string>
+    <string name="you_chose_color_and_color">You chose %1$s and %2$s</string>
+    <string name="success">SUCCESS</string>
+    <string name="wrong">WRONG</string>
+    <string name="sorry_android">Sorry Android !</string>
+    <string name="congratulation_android">Congratulation Android !</string>
+    <string name="your_answer_is_wrong">Your answer is wrong !</string>
+    <string name="quit">Quit</string>
+    <string name="mix">Mix</string>
+    <string name="your_answer_is_correct">Your answer is correct !</string>
+    <string name="enter_name">Please enter your name!</string>
+    <string name="select_two">You have to select exactly two colors!</string>
+</resources>
