@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">League Of Legends</string>
+    <string name="description_lol">Whether playing solo or co-op with friends, League of Legends is an intense and highly competitive strategy / action game designed for those who like to fight for victory.</string>
+    <string name="smite_description">It deals true damage to the target.</string>
+    <string name="heal_description">Restores health to your champion.</string>
+    <string name="ghost_description">Increases your champion\'s movement speed.</string>
+    <string name="flash_description">Blink to a short distance.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
