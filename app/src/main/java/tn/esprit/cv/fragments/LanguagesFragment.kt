@@ -24,7 +24,7 @@ class LanguagesFragment : Fragment(R.layout.fragment_languages) {
     }
 
     private fun checkCB(hb: String, cb: CheckBox) {
-        val sharedPreference =  requireContext().getSharedPreferences("SKILLS_INFO", Context.MODE_PRIVATE)
+        val sharedPreference =  requireContext().getSharedPreferences("INFO", Context.MODE_PRIVATE)
         val languages=sharedPreference.getString("languages","")
         if(languages?.contains(hb, ignoreCase = true) == true){
             cb.isChecked=true

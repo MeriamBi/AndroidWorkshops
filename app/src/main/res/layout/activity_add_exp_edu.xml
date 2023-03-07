@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AddExpEduActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
+    <!-- PICTURE -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_pic"
+        android:layout_marginTop="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_image"/>
+
+    <!-- NAME LAYOUT -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lyt_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        app:boxStrokeErrorColor="@color/red"
+        app:errorIconTint="@color/red"
+        app:errorTextColor="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/h4"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:startIconDrawable="@drawable/ic_apartment"
+        app:startIconTint="@color/colorPrimary">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:hint="Company Name"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- ADDRESS LAYOUT -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lyt_address"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        app:boxStrokeErrorColor="@color/red"
+        app:errorIconTint="@color/red"
+        app:errorTextColor="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/h4"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:startIconDrawable="@drawable/ic_add_location"
+        app:startIconTint="@color/colorPrimary">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:hint="Company Address"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- START DATE LAYOUT -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lyt_start"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        app:boxStrokeErrorColor="@color/red"
+        app:errorIconTint="@color/red"
+        app:errorTextColor="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/h4"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:startIconDrawable="@drawable/ic_calendar"
+        app:startIconTint="@color/colorPrimary">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:hint="Start Date"
+            android:focusable="false"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- END DATE LAYOUT -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lyt_end"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        app:boxStrokeErrorColor="@color/red"
+        app:errorIconTint="@color/red"
+        app:errorTextColor="@color/red"
+        app:layout_constraintBottom_toTopOf="@+id/h4"
+        app:layout_constraintEnd_toStartOf="@+id/v2"
+        app:layout_constraintStart_toStartOf="@+id/v1"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:startIconDrawable="@drawable/ic_calendar"
+        app:startIconTint="@color/colorPrimary">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:hint="End Date"
+            android:focusable="false"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- "SAVE" BTN -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_bg"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

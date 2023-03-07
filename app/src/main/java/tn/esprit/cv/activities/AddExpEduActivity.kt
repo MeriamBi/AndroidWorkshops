@@ -2,80 +2,145 @@ package tn.esprit.cv.activities
 
 import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import android.util.Patterns.EMAIL_ADDRESS
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import tn.esprit.cv.R
+import tn.esprit.cv.data.Company
+import tn.esprit.cv.data.CompanyType
+import tn.esprit.cv.utils.AppDataBase
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var picIv : ImageView
-    private lateinit var nameEt : TextInputEditText; private lateinit var ageEt : TextInputEditText; private lateinit var emailEt : TextInputEditText
-    private lateinit var nameLyt : TextInputLayout; private lateinit var ageLyt : TextInputLayout; private lateinit var emailLyt : TextInputLayout
-    private lateinit var genderRg : RadioGroup; private lateinit var maleRb : RadioButton; private lateinit var femaleRb : RadioButton
-    private lateinit var nextBtn : Button
-    private var picSet=false;
-    private lateinit var pic:String
+class AddExpEduActivity : AppCompatActivity() {
+    lateinit var type:String
+    private lateinit var nameEt : TextInputEditText; private lateinit var addressEt : TextInputEditText;
+    private lateinit var startEt : TextInputEditText;private lateinit var endEt : TextInputEditText
+    private lateinit var startLyt : TextInputLayout;private lateinit var endLyt : TextInputLayout
+    private lateinit var saveBtn : Button
+    lateinit var picIv:ImageView
+    private var picSet=false;private lateinit var pic:String
+    private lateinit var companyType:CompanyType
+    lateinit var database: AppDataBase
+    private lateinit var scope: CoroutineScope
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val actionBar = supportActionBar
-        //actionBar!!.title = getString(R.string.create_resume_title)
-
-        //INIT UI ELEMENTS
+        setContentView(R.layout.activity_add_exp_edu)
+        nameEt=findViewById(R.id.et_name); addressEt=findViewById(R.id.et_address);
+        startEt=findViewById(R.id.et_start);endEt=findViewById(R.id.et_end)
+        startLyt=findViewById(R.id.lyt_start);endLyt=findViewById(R.id.lyt_end)
+        saveBtn=findViewById(R.id.btn_save)
         picIv=findViewById(R.id.iv_pic)
-        nameEt=findViewById(R.id.et_name); ageEt=findViewById(R.id.et_age); emailEt=findViewById(R.id.et_email)
-        nameLyt=findViewById(R.id.lyt_name); ageLyt=findViewById(R.id.lyt_age); emailLyt=findViewById(
-            R.id.lyt_email
-        )
-        genderRg=findViewById(R.id.rg_gender); maleRb=findViewById(R.id.rb_male); femaleRb=findViewById(
-            R.id.rb_female
-        )
-        nextBtn=findViewById(R.id.btn_next)
-        val sharedPreference =  getSharedPreferences("INFO", Context.MODE_PRIVATE)
-        val rmChecked=sharedPreference.getBoolean("rm",false)
-        if(rmChecked){
-            var  intent= Intent(this, ResumeActivityV2::class.java)
-            startActivity(intent)
-        }
-        selectProfilePic()
+        scope = CoroutineScope(Dispatchers.IO)
 
-        //ON CLICK NEXT
-        nextBtn.setOnClickListener{
+        database = AppDataBase.getDatabase(applicationContext)
+
+        type = intent.getStringExtra("type").toString()
+        Log.d("TEST TYPE: ",type)
+        
+        actionBarConfig()
+        selectProfilePic()
+        setDates()
+        addCompany()
+
+    }
+
+    private fun addCompany() {
+        //ON CLICK SAVE
+        saveBtn.setOnClickListener{
             if(!picSet){
-                Toast.makeText(this, "Please select an image!", Toast.LENGTH_SHORT).show()
-            }else if(validateInput()){
-                var  intent= Intent(this, SkillsActivity::class.java)
-                intent.putExtra("fullname", nameEt.text.toString())
-                intent.putExtra("email", emailEt.text.toString())
-                intent.putExtra("age", ageEt.text.toString())
-                var gender="Male"
-                if(femaleRb.isChecked)
-                    gender="Female"
-                intent.putExtra("gender", gender)
-                intent.putExtra("pic", pic)
-                startActivity(intent)
+                val snackbar = Snackbar.make(it, "Please select a logo for the company!", Snackbar.LENGTH_LONG)
+                snackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                snackbar.show()
+            }else if(validateInput()) run {
+                val company = Company(
+                    pic,
+                    nameEt.text.toString(),
+                    addressEt.text.toString(),
+                    startEt.text.toString(),
+                    endEt.text.toString(),
+                    companyType
+                )
+                // start a new coroutine to perform the database operation
+                scope.launch {
+                    // get a reference to the database
+                    val dao = database.companyDao()
+
+                    // perform the database operation on the background thread
+                    dao.insertCompany(company)
+                }
+
+                // cancel the CoroutineScope when it's no longer needed
+                scope.cancel()
                 finish()
             }
         }
+    }
+
+    private fun setDates() {
+        startEt.setOnClickListener{
+            displayDatePicker(startEt)
+        }
+        endEt.setOnClickListener{
+            displayDatePicker(endEt)
+        }
+    }
+
+    private fun displayDatePicker(et: TextInputEditText) {
+        val datePicker = MaterialDatePicker.Builder.datePicker().build()
+        datePicker.show(supportFragmentManager, "DatePicker")
+        datePicker.addOnPositiveButtonClickListener { date ->
+            val formatter = SimpleDateFormat("MMM d, yyyy", Locale.getDefault())
+            val formattedDate = formatter.format(Date(date))
+            et.setText(formattedDate)
+        }
+    }
+
+    private fun actionBarConfig() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+        if(type=="exp"){
+            supportActionBar?.title="Add Experience"
+            companyType=CompanyType.EXPERIENCE
+        }else{
+            supportActionBar?.title="Add Education"
+            companyType=CompanyType.EDUCATION
+        }
+        toolbar.setTitleTextColor(Color.WHITE)
     }
 
     private fun selectProfilePic() {
@@ -164,21 +229,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun validateInput(): Boolean {
-        //Vérifier si les champs des 3 EditText ne sont pas vides
-        if(setError(nameEt,getString(R.string.must_not_be_empty)) || setError(emailEt,getString(R.string.must_not_be_empty)) || setError(ageEt,getString(
+        //Vérifier si les champs ne sont pas vides
+        if(setError(nameEt,getString(R.string.must_not_be_empty)) || setError(addressEt,getString(R.string.must_not_be_empty)) || setError(startEt,getString(
+                R.string.must_not_be_empty
+            )) || setError(endEt,getString(
                 R.string.must_not_be_empty
             ))){
-            return false
-        }else{
-            //vérifier si l'adresse email est valide
-             return emailVerified()
-        }
-    }
-
-    private fun emailVerified():Boolean {
-        if(!EMAIL_ADDRESS.matcher(emailEt.text).matches()){
-            (emailEt.parent.parent as TextInputLayout).isErrorEnabled = true
-            (emailEt.parent.parent as TextInputLayout).error = getString(R.string.check_email)
             return false
         }
         return true

@@ -29,7 +29,7 @@ class ResumeActivity_old : AppCompatActivity() {
         setSkills()
     }
     private fun setSkills() {
-        val sp="SKILLS_INFO"
+        val sp="INFO"
         setTextViewText(sp,"languages",langTv, R.string.languages)
         setTextViewText(sp,"hobbies",hbsTv, R.string.hobbies)
         setTextViewText(sp,"android",androidTv, R.string.android)
@@ -37,7 +37,7 @@ class ResumeActivity_old : AppCompatActivity() {
         setTextViewText(sp,"flutter",flutterTv, R.string.flutter)
     }
     private fun setGeneralInfo() {
-        val sp="GENERAL_INFO"
+        val sp="INFO"
         setTextViewText(sp,"fullname",nameTv, R.string.name)
         setTextViewText(sp,"email",emailTv, R.string.email)
         setTextViewText(sp,"age",ageTv, R.string.age)

@@ -10,11 +10,15 @@
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/bottom_to_top.xml" value="0.1945" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/drawable_resize.xml" value="0.1975" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/gradiant_splash.xml" value="0.162" />
+        <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/ic_account.xml" value="0.177" />
+        <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/ic_image.xml" value="0.177" />
+        <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/ic_logout.xml" value="0.177" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/ic_person_resized.xml" value="0.121" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/rounded_bg.xml" value="0.134" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/splash_bg.xml" value="0.1" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/test.xml" value="0.161" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/drawable/top_to_bottom.xml" value="0.1945" />
+        <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/activity_add_exp_edu.xml" value="0.2644110275689223" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/activity_career.xml" value="0.25" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/activity_main.xml" value="0.17894736842105263" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/activity_resume.xml" value="0.264" />
@@ -29,6 +33,7 @@
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/fragment_skills.xml" value="0.234375" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/fragment_summary.xml" value="0.2" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/layout/left_icon_layout.xml" value="0.25" />
+        <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/menu/career_menu.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/menu/custom_menu.xml" value="0.16" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/menu/custom_menu_career.xml" value="0.25" />
         <entry key="..\:/Users/Bugs Bunny/AndroidStudioProjects/Kotlin/CurriculumVitae/app/src/main/res/menu/menu_main.xml" value="0.2" />

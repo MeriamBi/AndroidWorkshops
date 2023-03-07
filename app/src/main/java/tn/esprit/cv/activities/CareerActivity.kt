@@ -1,8 +1,11 @@
 package tn.esprit.cv.activities
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -46,4 +49,28 @@ class CareerActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragment_container,fragment)
         fragmentTransaction.commit()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.career_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.exp_item -> {
+                var  intent= Intent(this, AddExpEduActivity::class.java)
+                intent.putExtra("type","exp")
+                startActivity(intent)
+                true
+            }
+            R.id.edu_item -> {
+                var  intent= Intent(this, AddExpEduActivity::class.java)
+                intent.putExtra("type","edu")
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

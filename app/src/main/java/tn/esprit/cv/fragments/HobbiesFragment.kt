@@ -24,7 +24,7 @@ class HobbiesFragment : Fragment(R.layout.fragment_hobbies) {
     }
 
     private fun checkCB(hb: String, cb: CheckBox) {
-        val sharedPreference =  requireContext().getSharedPreferences("SKILLS_INFO", Context.MODE_PRIVATE)
+        val sharedPreference =  requireContext().getSharedPreferences("INFO", Context.MODE_PRIVATE)
         val hobbies=sharedPreference.getString("hobbies","")
         if(hobbies?.contains(hb, ignoreCase = true) == true){
             cb.isChecked=true

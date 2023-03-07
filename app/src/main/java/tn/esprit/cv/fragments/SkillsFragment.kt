@@ -32,7 +32,7 @@ class SkillsFragment : Fragment(R.layout.fragment_skills) {
     }
 
     private fun setProgress() {
-        val sharedPreference =  requireContext().getSharedPreferences("SKILLS_INFO", Context.MODE_PRIVATE)
+        val sharedPreference =  requireContext().getSharedPreferences("INFO", Context.MODE_PRIVATE)
         val androidProgress=sharedPreference.getString("android","")
         val iosProgress=sharedPreference.getString("ios","")
         val flutterProgress=sharedPreference.getString("flutter","")

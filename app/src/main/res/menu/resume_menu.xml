@@ -5,4 +5,9 @@
         android:icon="@drawable/ic_info"
         android:title="About me"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/logout_item"
+        android:icon="@drawable/ic_logout"
+        app:showAsAction="always"
+        android:title="Logout" />
 </menu>

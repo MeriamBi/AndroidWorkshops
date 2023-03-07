@@ -20,7 +20,7 @@ class SummaryFragment : Fragment(R.layout.fragment_summary) {
     }
 
     private fun setGeneralInfo() {
-        val sp="GENERAL_INFO"
+        val sp="INFO"
         setTextViewText(sp,"fullname",nameTv, R.string.my_name)
         setTextViewText(sp,"email",emailTv,null)
         setTextViewText(sp,"age",ageTv, R.string.my_age)

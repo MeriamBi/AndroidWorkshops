@@ -3,6 +3,7 @@ package tn.esprit.cv.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.SeekBar
@@ -14,6 +15,9 @@ class SkillsActivity : AppCompatActivity() {
     private lateinit var arCb : CheckBox; private lateinit var frCb : CheckBox; private lateinit var enCb : CheckBox
     private lateinit var musicCb : CheckBox; private lateinit var sportCb : CheckBox; private lateinit var gamesCb : CheckBox
     private lateinit var submitBtn : Button
+    private lateinit var fullname:String;private lateinit var email:String;private lateinit var age:String;
+    private lateinit var gender:String;private lateinit var pic:String;
+    private lateinit var rmCb : CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,23 +30,46 @@ class SkillsActivity : AppCompatActivity() {
             R.id.cb_games
         )
         submitBtn=findViewById(R.id.btn_submit)
+        rmCb=findViewById(R.id.cb_rm)
+
 
         val actionBar = supportActionBar
         //actionBar!!.title = getString(R.string.create_resume_title)
+
+        fullname = intent.getStringExtra("fullname").toString()
+        email = intent.getStringExtra("email").toString()
+        age = intent.getStringExtra("age").toString()
+        gender = intent.getStringExtra("gender").toString()
+        pic = intent.getStringExtra("pic").toString()
 
         //ON CLICK SUBMIT
         submitBtn.setOnClickListener{
             saveData()
             var  intent= Intent(this, ResumeActivityV2::class.java)
             startActivity(intent)
+            finish()
         }
 
     }
 
+    private fun saveGeneralInfo() {
+        val sharedPreference =  getSharedPreferences("INFO", Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.putString("fullname", fullname)
+        editor.putString("email", email)
+        editor.putString("age", age)
+        editor.putString("gender", gender)
+        editor.putString("pic", pic)
+        Log.d("TEST", rmCb.isChecked.toString())
+        editor.putBoolean("rm", rmCb.isChecked)
+        editor.apply()
+    }
+
     private fun saveData() {
+        saveGeneralInfo()
         var languages=""
         var hobbies=""
-        val sharedPreference =  getSharedPreferences("SKILLS_INFO", Context.MODE_PRIVATE)
+        val sharedPreference =  getSharedPreferences("INFO", Context.MODE_PRIVATE)
         var editor = sharedPreference.edit()
         if (arCb.isChecked)
             languages+=getString(R.string.arabic)+" "
@@ -56,6 +83,7 @@ class SkillsActivity : AppCompatActivity() {
             hobbies+=getString(R.string.sport)+" "
         if (gamesCb.isChecked)
             hobbies+=getString(R.string.games)+" "
+
         editor.putString("languages", languages)
         editor.putString("hobbies", hobbies)
         editor.putString("android", androidSb.progress.toFloat().toString())

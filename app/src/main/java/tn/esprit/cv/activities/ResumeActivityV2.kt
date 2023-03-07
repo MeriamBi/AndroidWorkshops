@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -59,10 +60,10 @@ class ResumeActivityV2 : AppCompatActivity() {
     }
 
     private fun setGeneralInfo() {
-        val sharedPreference =  getSharedPreferences("GENERAL_INFO", Context.MODE_PRIVATE)
+        val sharedPreference =  getSharedPreferences("INFO", Context.MODE_PRIVATE)
         nameTv.text=sharedPreference.getString("fullname","") //set fullname
         emailTv.text=sharedPreference.getString("email","") //set email
-        var savedImagePath=sharedPreference.getString("uri","")
+        var savedImagePath=sharedPreference.getString("pic","")
         Glide.with(this).load(savedImagePath).into(picIv) //set profile picture
     }
 
@@ -74,7 +75,7 @@ class ResumeActivityV2 : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.custom_menu,menu)
+        menuInflater.inflate(R.menu.resume_menu,menu)
         return true
     }
 
@@ -95,7 +96,33 @@ class ResumeActivityV2 : AppCompatActivity() {
                 replaceFragment(SummaryFragment())
                 return true
             }
+            R.id.logout_item -> {
+                showDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure you want to logout?")
+        builder.setPositiveButton("Yes") { dialog, which ->
+            logoutUser()
+        }
+        builder.setNegativeButton("No", null)
+        val dialog = builder.create()
+        dialog.show()
+
+    }
+
+    private fun logoutUser() {
+        val sharedPreference =  getSharedPreferences("INFO", Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.clear().apply()
+        var  intent= Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
