@@ -34,7 +34,7 @@ class EducationFragment : Fragment(R.layout.fragment_education) {
             val cpList = withContext(Dispatchers.IO) {
                 dao.getCompaniesByType(CompanyType.EDUCATION)
             }
-            val adapter = RecyclerViewAdapter(cpList, R.layout.education_item)
+            val adapter = RecyclerViewAdapter(dao,cpList, R.layout.education_item)
             educationRv.adapter = adapter
         }
         // ArrayList of class ItemsViewModel

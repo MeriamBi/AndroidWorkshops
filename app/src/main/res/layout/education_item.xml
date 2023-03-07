@@ -48,21 +48,41 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="COMPANY NAME"
-            android:textColor="@color/colorPrimary" />
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:text="COMPANY ADDRESS"
-            android:textColor="@color/colorPrimary" />
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="COMPANY NAME"
+                    android:textColor="@color/colorPrimary" />
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="COMPANY ADDRESS"
+                    android:textColor="@color/colorPrimary" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:tint="@color/colorPrimary"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_delete"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

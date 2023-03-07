@@ -20,16 +20,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import tn.esprit.cv.R
 import tn.esprit.cv.data.Company
 import tn.esprit.cv.data.CompanyType
@@ -65,8 +63,7 @@ class AddExpEduActivity : AppCompatActivity() {
         database = AppDataBase.getDatabase(applicationContext)
 
         type = intent.getStringExtra("type").toString()
-        Log.d("TEST TYPE: ",type)
-        
+
         actionBarConfig()
         selectProfilePic()
         setDates()
@@ -90,20 +87,23 @@ class AddExpEduActivity : AppCompatActivity() {
                     endEt.text.toString(),
                     companyType
                 )
-                // start a new coroutine to perform the database operation
                 scope.launch {
-                    // get a reference to the database
                     val dao = database.companyDao()
-
-                    // perform the database operation on the background thread
                     dao.insertCompany(company)
+                    withContext(Dispatchers.Main) {
+                        finish()
+                    }
                 }
 
-                // cancel the CoroutineScope when it's no longer needed
-                scope.cancel()
-                finish()
+
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // cancel the CoroutineScope when it's no longer needed
+        scope.cancel()
     }
 
     private fun setDates() {
@@ -171,7 +171,9 @@ class AddExpEduActivity : AppCompatActivity() {
         if (uri != null) {
             val inputStream = contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            val file = File(getExternalFilesDir(null), "profile_pic.png")
+            val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val fileName = "profile_pic_$timestamp.png"
+            val file = File(getExternalFilesDir(null), fileName)
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
             outputStream.flush()
@@ -191,7 +193,8 @@ class AddExpEduActivity : AppCompatActivity() {
         if (uri != null) {
             val inputStream = contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
-            val fileName = "profile_pic.png"
+            val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+            val fileName = "profile_pic_$timestamp.png"
             val contentValues = ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
                 put(MediaStore.Images.Media.MIME_TYPE, "image/png")

@@ -35,7 +35,7 @@ class ExperienceFragment : Fragment(R.layout.fragment_experience) {
             val cpList = withContext(Dispatchers.IO) {
                 dao.getCompaniesByType(CompanyType.EXPERIENCE)
             }
-            val adapter = RecyclerViewAdapter(cpList, R.layout.education_item)
+            val adapter = RecyclerViewAdapter(dao,cpList, R.layout.experience_item)
             experienceRv.adapter = adapter
         }
 
