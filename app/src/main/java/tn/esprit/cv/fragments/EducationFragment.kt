@@ -21,7 +21,9 @@ class EducationFragment : Fragment(R.layout.fragment_education) {
     private lateinit var educationRv: RecyclerView
     private lateinit var dao: CompanyDao
     lateinit var database: AppDataBase
+    lateinit var adapter:RecyclerViewAdapter
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +36,7 @@ class EducationFragment : Fragment(R.layout.fragment_education) {
             val cpList = withContext(Dispatchers.IO) {
                 dao.getCompaniesByType(CompanyType.EDUCATION)
             }
-            val adapter = RecyclerViewAdapter(dao,cpList, R.layout.education_item)
+            adapter = RecyclerViewAdapter(dao,cpList, R.layout.education_item)
             educationRv.adapter = adapter
         }
         // ArrayList of class ItemsViewModel
@@ -48,4 +50,23 @@ class EducationFragment : Fragment(R.layout.fragment_education) {
         val adapter= RecyclerViewAdapter(data,R.layout.education_item)
         educationRv.adapter=adapter*/
     }
+    private fun updateList() {
+        coroutineScope.launch {
+            val companies = withContext(Dispatchers.IO) {
+                database.companyDao().getAllCompanies()
+            }
+            withContext(Dispatchers.Main) {
+                adapter.companiesList = companies
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateList()
+    }
+
+
+
 }

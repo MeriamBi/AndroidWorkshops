@@ -94,8 +94,6 @@ class AddExpEduActivity : AppCompatActivity() {
                         finish()
                     }
                 }
-
-
             }
         }
     }

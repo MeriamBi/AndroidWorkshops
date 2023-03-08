@@ -23,6 +23,7 @@ class ExperienceFragment : Fragment(R.layout.fragment_experience) {
     private lateinit var dao: CompanyDao
     lateinit var database: AppDataBase
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    lateinit var adapter: RecyclerViewAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +36,7 @@ class ExperienceFragment : Fragment(R.layout.fragment_experience) {
             val cpList = withContext(Dispatchers.IO) {
                 dao.getCompaniesByType(CompanyType.EXPERIENCE)
             }
-            val adapter = RecyclerViewAdapter(dao,cpList, R.layout.experience_item)
+            adapter = RecyclerViewAdapter(dao,cpList, R.layout.experience_item)
             experienceRv.adapter = adapter
         }
 
@@ -47,5 +48,23 @@ class ExperienceFragment : Fragment(R.layout.fragment_experience) {
         data.add(Data(R.drawable.esprit,"ESPRIT","TUNISIA","01/09/2023","31/08/2024","Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap."))
         val adapter= RecyclerViewAdapter(data,R.layout.experience_item)
         experienceRv.adapter=adapter*/
+    }
+
+    private fun updateList() {
+        coroutineScope.launch {
+            val companies = withContext(Dispatchers.IO) {
+                database.companyDao().getAllCompanies()
+            }
+            withContext(Dispatchers.Main) {
+                adapter.companiesList = companies
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        updateList()
     }
 }
